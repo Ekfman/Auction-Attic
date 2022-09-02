@@ -8,22 +8,24 @@ const Posts = ({posts, setPosts}) => {
         const fetchPosts = async ()  => {
             const response = await fetch (`${baseURL}${cohortURL}/posts`);
             const data = await response.json();
-            setPosts(data);
-            console.log(setPosts(data))
+            setPosts(data.data.posts);
         }
         fetchPosts()
     }, [])
    
     return (
         <div>
-            <h1>Current Items for Sale</h1>
+            <h2>Current Items for Sale</h2>
             {posts.map( post => {
                 return(
                 <div key={post._id}>
                     <h2>{post.title}</h2>
-                    <h3>{post.author.username}</h3>
-                    <p>{post.description}</p>
-                    <p>{post.price}</p>
+                    <h3>Seller: {post.author.username}</h3>
+                    <div>
+                        <p>Description:</p>
+                        <p>{post.description}</p>
+                    </div>
+                    <p>Price: {post.price}</p>
                     <p>{post.willDeliver}</p>
                 </div>
                 )
