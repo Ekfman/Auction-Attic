@@ -1,9 +1,17 @@
+import { useState, useEffect } from "react"
+import Posts from "./Posts"
 
-const baseURL = "https://strangers-things.herokuapp.com/api"
-const cohortURL = "/2206-ftb-pt-web-pt"
+
+
 
 const App = () => {
-
+    const [posts, setPosts] = useState([]);
+    return(
+        <Posts 
+            posts={posts}
+            setPosts={setPosts}
+        />
+    )
 }
 
 export default App
