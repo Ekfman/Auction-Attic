@@ -2,11 +2,11 @@ const Login = () => {
   return (
     <div>
       <form>
-        <label>Username</label>
+        <label>Username:</label>
         <br></br>
         <input type="text"></input>
         <br></br>
-        <label>Password</label>
+        <label>Password:</label>
         <br></br>
         <input type="text"></input>
         <br></br>

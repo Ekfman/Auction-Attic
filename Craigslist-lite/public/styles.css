@@ -3,6 +3,10 @@
 }
 .loginLinks {
     display: flex;
-    padding-left: 20px;
+    padding-left: 85%;
+    justify-content: space-between;
+}
 
+.login {
+    padding-left:20px;
 }

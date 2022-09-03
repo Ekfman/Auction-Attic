@@ -1,18 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { newUserApi } from "./Api";
 
-const Register = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+const Register = ({
+  username,
+  setUsername,
+  password,
+  setPassword,
+  setToken,
+}) => {
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+        const regOrLog = "register"
+      const token = await newUserApi({ username, password, regOrLog });
+      setToken(token);
+      console.log(token);
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <div>
-      <form>
-        <label>Username</label>
+      <form onSubmit={submitHandler}>
+        <label>New Username:</label>
         <br></br>
-        <input type="text"></input>
+        <input
+          onChange={(e) => setUsername(e.target.value)}
+          type="text"
+          required
+        ></input>
         <br></br>
-        <label>Password</label>
+        <label>New Password:</label>
         <br></br>
-        <input type="text"></input>
+        <input
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+          required
+        ></input>
         <br></br>
         <button>Enter</button>
       </form>
@@ -21,3 +45,6 @@ const Register = () => {
 };
 
 export default Register;
+
+//for each new user, we need a token
+//for each username and password must save it in the state

@@ -1,21 +1,23 @@
 import { useState, useEffect } from "react";
+import { fetchApiPosts } from "./Api";
 
-const baseURL = "https://strangers-things.herokuapp.com/api";
-const cohortURL = "/2206-ftb-pt-web-pt";
 
 const Posts = ({posts, setPosts}) => {
-    useEffect( () => {
-        const fetchPosts = async ()  => {
-            const response = await fetch (`${baseURL}${cohortURL}/posts`);
-            const data = await response.json();
-            setPosts(data.data.posts);
+    useEffect ( () => {
+        const fetchPosts = async () => {
+            try{
+                const apiData = await fetchApiPosts()
+                setPosts(apiData)
+            } catch (err) {
+                console.error(err)
+            }
         }
         fetchPosts()
     }, [])
    
     return (
         <div>
-            <h2>Current Items for Sale</h2>
+            <h2>Newest Items for Sale</h2>
             {posts.map( post => {
                 return(
                 <div key={post._id}>
