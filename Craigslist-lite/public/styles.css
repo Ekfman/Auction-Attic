@@ -1,12 +1,134 @@
 .navbar {
     display: flex;
+    background-color: rgb(150, 174, 202);
+    justify-content: space-between;
+  
 }
+
+.navbarLeft{
+    display: flex;
+    align-items: center;
+}
+
+.logo{
+    text-decoration: none; 
+    color: white;
+    margin-left: 18px;
+    font-weight: 600;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    font-size: 20px;
+    border-right: white solid 2px;
+    padding-right: 12px;
+}
+
 .loginLinks {
     display: flex;
-    padding-left: 85%;
-    justify-content: space-between;
+    margin-top: 15px;
+    
+}
+
+.searchBar {
+    text-align: end;
+    display: flex;
+    align-items: end;
+    margin-left: 20px;
+}
+
+.signup{
+    text-decoration: none;
+    color: white;
 }
 
 .login {
-    padding-left:20px;
+    text-decoration: none; 
+    color: white;
+    margin-left: 13px;
+   
+}
+
+.profile {
+    text-decoration: none; 
+    color: white;
+    margin-left: 13px;
+}
+
+.pageHeader{
+    text-align: center;
+    color: white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    font-size: 30px;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+}
+
+.postCard{
+    margin-left: 150px;
+    margin-right: 150px;
+}
+
+.margin{
+    margin-left:150px;
+    margin-right: 150px;
+}
+
+.postHeader{
+    background-color: rgb(150, 174, 202);
+    padding: 15px;
+    border-radius: 12px;
+    color: white;
+}
+
+.postBody{
+    padding-left: 10px;
+    border: 3px;
+    border-color: rgb(150, 174, 202);
+    border-style: solid;
+    border-top: rgb(150, 174, 202);
+}
+
+.descriptionInput{
+    height: 100px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.titleInput{
+    height: 20px;
+}
+
+.priceInput{
+    height: 20px;
+    margin-bottom: 12px;
+}
+
+.buttonForm{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: medium;
+    margin-bottom: 15px;
+    background-color: white;
+    border-radius: 10px;
+    border-color: rgb(150, 174, 202);
+    border-style: solid;
+}
+
+.buttonForm:hover{
+    filter: brightness(90%)
+}
+
+.formContainer{
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.formInput{
+    margin-bottom: 12px;
 }

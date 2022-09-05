@@ -12,19 +12,18 @@ const Register = ({
     e.preventDefault();
     try {
         const regOrLog = "register"
-      const token = await newUserApi({ username, password, regOrLog });
+      const token = await newUserApi(username, password, regOrLog);
       setToken(token);
-      console.log(token);
     } catch (err) {
       console.error(err);
     }
   };
   return (
-    <div>
+    <div className="formContainer">
       <form onSubmit={submitHandler}>
         <label>New Username:</label>
         <br></br>
-        <input
+        <input className="formInput"
           onChange={(e) => setUsername(e.target.value)}
           type="text"
           required
@@ -32,19 +31,20 @@ const Register = ({
         <br></br>
         <label>New Password:</label>
         <br></br>
-        <input
+        <input className="formInput"
           onChange={(e) => setPassword(e.target.value)}
           type="password"
           required
         ></input>
         <br></br>
-        <button>Enter</button>
+        <label>Confirm Password:</label>
+        <br></br>
+        <input className="formInput" type="password" required></input>
+        <br></br>
+        <button className="buttonForm">Sign up</button>
       </form>
     </div>
   );
 };
 
 export default Register;
-
-//for each new user, we need a token
-//for each username and password must save it in the state

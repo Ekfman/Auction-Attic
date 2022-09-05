@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import { fetchApiPosts } from "./Api";
 
 
+const UpdatePost = ({postId, setPostId, posts, setPosts}) => {
+
+}
+
 const Posts = ({posts, setPosts}) => {
     useEffect ( () => {
         const fetchPosts = async () => {
@@ -17,23 +21,32 @@ const Posts = ({posts, setPosts}) => {
    
     return (
         <div>
-            <h2>Newest Items for Sale</h2>
+            <h2 className="pageHeader">Current Items for Sale</h2>
+            {/* {
+                postId ? <Update posts={posts} setPosts={setPosts} postId={postId} setPostId={setPostId}/> : <CreatePost posts={posts} setPosts={setPosts} />
+            } */}
             {posts.map( post => {
                 return(
-                <div key={post._id}>
-                    <h2>{post.title}</h2>
-                    <h3>Seller: {post.author.username}</h3>
+                <div className="postCard" key={post._id}>
+                    <h3 className="postHeader">{post.title}</h3>
+                    <div className="postBody">
+                    <p className="price">Price: {post.price}</p>
                     <div>
                         <p>Description:</p>
                         <p>{post.description}</p>
                     </div>
-                    <p>Price: {post.price}</p>
                     <p>{post.willDeliver}</p>
+                    <p>Seller: {post.author.username}</p>
+                    <p>Posted: {post.createdAt}</p>
+                    <button className="buttonForm" onClick={ () => setPostId(post.id)}>Edit</button>
+                    </div>
                 </div>
                 )
             })}
         </div>
     )
 }
+
+
 
 export default Posts
