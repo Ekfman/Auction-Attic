@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { newUserApi } from "./Api";
+import { regAndLogAPI } from "./Api";
 
 const Register = ({
   username,
@@ -12,7 +12,7 @@ const Register = ({
     e.preventDefault();
     try {
         const regOrLog = "register"
-      const token = await newUserApi(username, password, regOrLog);
+      const token = await regAndLogAPI(username, password, regOrLog);
       setToken(token);
     } catch (err) {
       console.error(err);

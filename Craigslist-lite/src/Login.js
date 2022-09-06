@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { newUserApi } from "./Api";
+import { regAndLogAPI } from "./Api";
 
 const Login = ({ username, setUsername, password, setPassword, setToken }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
       const regOrLog = "login";
-      const token = await newUserApi(username, password, regOrLog);
+      const token = await regAndLogAPI(username, password, regOrLog);
       setToken(token);
       console.log(token);
     } catch (err) {

@@ -2,6 +2,8 @@
     display: flex;
     background-color: rgb(150, 174, 202);
     justify-content: space-between;
+    padding-top: 20px;
+    padding-bottom: 20px;
   
 }
 
@@ -24,7 +26,6 @@
 
 .loginLinks {
     display: flex;
-    margin-top: 15px;
     
 }
 
@@ -40,17 +41,36 @@
     color: white;
 }
 
+.signup:hover{
+    text-decoration: underline;
+}
+
 .login {
     text-decoration: none; 
     color: white;
     margin-left: 13px;
+    margin-right: 18px;
    
+}
+
+.login:hover{
+    text-decoration: underline;
 }
 
 .profile {
     text-decoration: none; 
     color: white;
     margin-left: 13px;
+}
+
+.dropdown{
+    list-style: none;
+   
+}
+
+.userListingsLinks{
+    text-decoration: none;
+    
 }
 
 .pageHeader{
@@ -64,6 +84,22 @@
 .form{
     display: flex;
     flex-direction: column;
+}
+
+.price{
+    margin-bottom: 20px;
+}
+
+.description{
+    margin-bottom: 30px;
+}
+
+.locationAndDeliverDiv{
+    display: flex;
+}
+
+.willDeliver{
+    margin-left: 20px;
 }
 
 .postCard{
@@ -129,6 +165,20 @@
     margin-top: 100px;
 }
 
+.form{
+    margin-top: 100px;
+}
+
 .formInput{
     margin-bottom: 12px;
+}
+
+.locationInput {
+    margin-left: 12px;
+    padding-top: 1.5px;
+    padding-bottom: 1.5px;
+}
+
+.checkbox{
+    margin-left: 12px;
 }
