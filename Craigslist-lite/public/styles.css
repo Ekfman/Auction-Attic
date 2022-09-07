@@ -30,10 +30,10 @@
 }
 
 .searchBar {
-    text-align: end;
     display: flex;
-    align-items: end;
     margin-left: 20px;
+    justify-content: center;
+
 }
 
 .signup{

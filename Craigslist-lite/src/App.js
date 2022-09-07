@@ -5,6 +5,7 @@ import Register from "./Register";
 import Login from "./Login";
 import CreatePost from "./CreatePost"
 import Profile from "./Profile"
+import { fetchApiPosts } from "./Api";
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -14,19 +15,50 @@ const App = () => {
   const [title, setTitle] = useState([]);
   const [description, setDescription] = useState([]);
   const [price, setPrice] = useState([])
+  const [postUserId, setPostUserId] = useState("")
   const [userId, setUserId] = useState("");
   const [location, setLocation] = useState("Not Available");
   const [willDeliver, setWillDeliver] = useState(false);
   const [userPosts, setUserPosts] = useState([]);
+  const [postIdToDelete, setPostIdToDelete] = useState("")
+  const [postId, setPostId] = useState("")
+  
+ 
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const apiData = await fetchApiPosts({token});
+        setPosts(apiData.data.posts);
+
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchPosts();
+
+  }, [token]);
+
+
+  const deleteHandler = async (deletedPostId) => {
+    console.log("delete")
+    try{
+        const fetchDeletedPost = await deletePostApi ({deletedPostId})
+        console.log(fetchDeletedPost)
+        if(fetchDeletedPost) {
+            const newPosts = posts.filter(post => post._id !== deletedPostId)
+            setPosts(newPosts)
+        }
+    } catch (err) {
+        console.error(err)
+    };
+}
+
   return (
     <BrowserRouter>
       <nav className="navbar">
         <div className="navbarLeft">
         <Link className="logo" to="/listings">The <br></br>Auction <br></br>Attic</Link>
-        <form className="searchBar">
-            <input placeholder="search..." type="text"></input>
-            <button className="searchButton">Enter</button>
-        </form>
+        
         </div>
         
             { token ? 
@@ -50,13 +82,14 @@ const App = () => {
         <Route path="/login" element={<Login username={username} setUsername={setUsername} setPassword={setPassword} password={password} setToken={setToken}/>} ></Route>
         <Route
           path="/listings"
-          element={<Posts posts={posts} setPosts={setPosts} token={token} userId={userId} setUserId={setUserId} />}
+          element={<Posts posts={posts} setPosts={setPosts} token={token} userId={userId} setUserId={setUserId} postUserId={postUserId} setPostUserId={setPostUserId} deleteHandler={deleteHandler} />}
         ></Route>
-        <Route path="/addListing" element={<CreatePost title={title} setTitle={setTitle} description={description} setDescription={setDescription} price={price} setPrice={setPrice} posts={posts} setPosts={setPosts} token={token} location={location} setLocation={setLocation} willDeliver={willDeliver} setWillDeliver={setWillDeliver} userPosts={userPosts} setUserPosts={setUserPosts} />}></Route>
-        <Route path="/profile" element={<Profile userId={userId} setUserId={setUserId} posts={posts} userPosts={userPosts} setUserPosts={setUserPosts} token={token} />}></Route>
+        <Route path="/addListing" element={<CreatePost title={title} setTitle={setTitle} description={description} setDescription={setDescription} price={price} setPrice={setPrice} posts={posts} setPosts={setPosts} token={token} location={location} setLocation={setLocation} willDeliver={willDeliver} setWillDeliver={setWillDeliver} userPosts={userPosts} setUserPosts={setUserPosts} postUserId={postUserId} setPostUserId={setPostUserId} />}></Route>
+        <Route path="/profile" element={<Profile userId={userId} setUserId={setUserId} posts={posts} userPosts={userPosts} setUserPosts={setUserPosts} token={token} postUserId={postUserId} setPostUserId={setPostUserId} username={username} postIdToDelete={postIdToDelete} setPostIdToDelete={setPostIdToDelete} postId={postId} setPostId={setPostId} deleteHandler={deleteHandler} />}></Route>
       </Routes>
     </BrowserRouter>
   );
 };
+
 
 export default App;

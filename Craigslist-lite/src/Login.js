@@ -8,14 +8,13 @@ const Login = ({ username, setUsername, password, setPassword, setToken }) => {
       const regOrLog = "login";
       const token = await regAndLogAPI(username, password, regOrLog);
       setToken(token);
-      console.log(token);
     } catch (err) {
       console.error(err);
     }
   };
   return (
     <div className="formContainer">
-      <form onSubmit={submitHandler}>
+      <form>
         <label>Username:</label>
         <br></br>
         <input className="formInput"
@@ -32,7 +31,7 @@ const Login = ({ username, setUsername, password, setPassword, setToken }) => {
           required
         ></input>
         <br></br>
-        <button className="buttonForm">Login</button>
+        <button onClick={submitHandler} className="buttonForm">Login</button>
       </form>
     </div>
   );

@@ -20,7 +20,7 @@ const Register = ({
   };
   return (
     <div className="formContainer">
-      <form onSubmit={submitHandler}>
+      <form>
         <label>New Username:</label>
         <br></br>
         <input className="formInput"
@@ -41,7 +41,7 @@ const Register = ({
         <br></br>
         <input className="formInput" type="password" required></input>
         <br></br>
-        <button className="buttonForm">Sign up</button>
+        <button onClick={submitHandler} className="buttonForm">Sign up</button>
       </form>
     </div>
   );

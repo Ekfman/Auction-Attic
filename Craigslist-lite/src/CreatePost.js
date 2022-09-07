@@ -14,7 +14,9 @@ const CreatePost = ({
   setLocation,
   location,
   setUserPosts,
-  userPosts
+  userPosts,
+  postUserId, 
+  setPostUserId
 }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -28,8 +30,8 @@ const CreatePost = ({
       });
       // console.log(newPost)
       setPosts([newPost, ...posts]);
-      setUserPosts(newPost);
-      console.log(userPosts)
+      setPostUserId(newPost.author._id)
+      console.log(newPost.author._id)
     } catch (err) {
       console.error(err);
     }
@@ -42,12 +44,14 @@ const CreatePost = ({
           onChange={(e) => setTitle(e.target.value)}
           type="text"
           placeholder="Title"
+          required
         ></input>
         <input
           className="descriptionInput"
           onChange={(e) => setDescription(e.target.value)}
           type="text"
           placeholder="Description"
+          required
         ></input>
         <div className="postExtras">
           <input
@@ -55,12 +59,14 @@ const CreatePost = ({
             onChange={(e) => setPrice(e.target.value)}
             type="text"
             placeholder="$0.00"
+            required
           ></input>
           <input
             className="locationInput"
             type="text"
             onChange={(e) => setLocation(e.target.value)}
             placeholder="City, State"
+            required
           ></input>
           {/* <input className="checkbox" type="checkbox" onChange={e => setWillDeliver(e.target.value)}></input> */}
           <label>Will Deliver?</label>
