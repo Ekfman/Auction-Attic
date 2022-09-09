@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { createPostApi } from "./Api";
 
+
+
 const CreatePost = ({
   title,
   setTitle,
@@ -10,14 +12,17 @@ const CreatePost = ({
   setPrice,
   posts,
   setPosts,
-  token,
-  setLocation,
   location,
-  setUserPosts,
-  userPosts,
-  postUserId, 
-  setPostUserId
+  setLocation,
+  token
 }) => {
+
+const [willDeliver, setWillDeliver] = useState(false)
+
+const handleCheckBox = () => {
+    console.log(willDeliver)
+    setWillDeliver(!willDeliver)
+}
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -27,11 +32,9 @@ const CreatePost = ({
         price,
         location,
         token,
+        willDeliver
       });
-      // console.log(newPost)
       setPosts([newPost, ...posts]);
-      setPostUserId(newPost.author._id)
-      console.log(newPost.author._id)
     } catch (err) {
       console.error(err);
     }
@@ -68,8 +71,8 @@ const CreatePost = ({
             placeholder="City, State"
             required
           ></input>
-          {/* <input className="checkbox" type="checkbox" onChange={e => setWillDeliver(e.target.value)}></input> */}
           <label>Will Deliver?</label>
+          <input className="checkbox" type="checkbox" checked={willDeliver} onChange={handleCheckBox}></input>
         </div>
         <button>Add Listing</button>
       </form>

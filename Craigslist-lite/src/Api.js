@@ -65,6 +65,7 @@ export const createPostApi = async ({
   price,
   token,
   location,
+  willDeliver
 }) => {
   try {
     const response = await fetch(`${baseURL}${cohortURL}/posts`, {
@@ -79,7 +80,7 @@ export const createPostApi = async ({
           description,
           price,
           location,
-          // willDeliver
+          willDeliver
         },
       }),
     });
@@ -92,30 +93,30 @@ export const createPostApi = async ({
   }
 };
 
-// export const EditPostApi = async ({title, description, price, location, willDeliver, token, postId}) => {
-//     try{
-//         const response = await fetch (`${baseURL}${cohortURL}/${postId}`, {
-//             method: "PATCH",
-//             headers: {
-//                             'Content-Type': 'application/json',
-//                             'Authorization': `Bearer ${token}`
-//                     },
-//             body: JSON.stringify({
-//                 post: {
-//                     title,
-//                     description,
-//                     price,
-//                     willDeliver,
-//                     location
-//                 }
-//             })
-//         });
-//         const data = await response.json()
-//         return data
-//         } catch (err) {
-//     console.error(err)
-// }
-// }
+export const EditPostApi = async ({title, description, price, location, willDeliver, token, postId}) => {
+    try{
+        const response = await fetch (`${baseURL}${cohortURL}/posts/${postId}`, {
+            method: "PATCH",
+            headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                    },
+            body: JSON.stringify({
+                post: {
+                    title,
+                    description,
+                    price,
+                    willDeliver,
+                    location
+                }
+            })
+        });
+        const data = await response.json()
+        return data.data.post
+        } catch (err) {
+    console.error(err)
+}
+}
 
 export const deletePostApi = async ({ token, deletedPostId }) => {
   try {
@@ -132,3 +133,40 @@ export const deletePostApi = async ({ token, deletedPostId }) => {
     console.error(err);
   }
 };
+
+export const messageApi = async ({postId, token, message}) => {
+  try {
+    const response = await fetch(`${baseURL}${cohortURL}/posts/${postId}/messages`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          message: {
+            content: `${message}`
+          },
+        }),
+      }
+    );
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const inboxApi = async ({token}) => {
+    try{
+        const response = await fetch(`${baseURL}${cohortURL}/users/me`, {
+    headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  },
+})
+    const data = await response.json();
+    return data;
+    } catch (err) {
+        console.error(err);
+}
+}

@@ -14,7 +14,7 @@ const Login = ({ username, setUsername, password, setPassword, setToken }) => {
   };
   return (
     <div className="formContainer">
-      <form>
+      <form onSubmit={submitHandler}>
         <label>Username:</label>
         <br></br>
         <input className="formInput"
@@ -31,7 +31,7 @@ const Login = ({ username, setUsername, password, setPassword, setToken }) => {
           required
         ></input>
         <br></br>
-        <button onClick={submitHandler} className="buttonForm">Login</button>
+        <button className="buttonForm">Login</button>
       </form>
     </div>
   );

@@ -1,13 +1,22 @@
 import { useState, useEffect } from "react";
 import { profileApi, deletePostApi } from "./Api"
 
-const Profile = ({posts}) => {
+const MyListings = ({posts, deleteHandler, searchValue, setSearchValue}) => {
 
     const filteredPosts = posts.filter( post => post.isAuthor )
 
     return (
         <div>
-          <h2 className="pageHeader">Current Items for Sale</h2>
+          <div className="postsPageHeader">
+          <h2 className="pageHeader">My Listings:</h2>
+          <input 
+            className="searchBar"
+            type="text"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            placeholder="search...">
+            </input>
+            </div>
           {filteredPosts.map((post) => {
           
             return (
@@ -33,13 +42,14 @@ const Profile = ({posts}) => {
                         Available
                       </p>
                     )}
-                    {/* {post.willDeliver ? <p className="willDeliver"><span style={{fontWeight: 'bold'}}>Will Deliver:</span> Yes</p> : <p className="willDeliver"><span style={{fontWeight: 'bold'}}>Will Deliver:</span> No</p>} */}
+                    {post.willDeliver ? <p className="willDeliver"><span style={{fontWeight: 'bold'}}>Will Deliver:</span> Yes</p> : <p className="willDeliver"><span style={{fontWeight: 'bold'}}>Will Deliver:</span> No</p>}
                   </div>
                   <p>
                     <span style={{ fontWeight: "bold" }}>Seller:</span>{" "}
                     {post.author?.username}
                   </p>
                   <p>Posted: {post.createdAt}</p>
+                  <div className="authorButtons">
                   {post.isAuthor && (
                     <button
                       className="buttonForm"
@@ -61,10 +71,11 @@ const Profile = ({posts}) => {
                     </button>
                   )}
                    { post.isAuthor && 
-                    <button className="buttonForm">
+                    <button onClick={() => deleteHandler(post._id)} className="deleteButton">
                         Delete
                     </button>
                     }
+                    </div>
                 </div>
               </div>
             );
@@ -85,4 +96,4 @@ const Profile = ({posts}) => {
     };
 
 
-export default Profile
+export default MyListings;
