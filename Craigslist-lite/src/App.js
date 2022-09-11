@@ -84,18 +84,17 @@ const App = () => {
         </div>
 
         {token ? (
-          // <p>Hello, {username}</p>
           <div className="loginLinks">
             <Link className="signup" to="/myListings">
               My Listings
             </Link>
-            <Link className="login" to="/addListing">
+            <Link className="addListing" to="/addListing">
               Create Listing
             </Link>
-            <Link className="login" to="/messages">
+            <Link className="addListing" to="/messages">
               Messages
             </Link>
-            <Link className="logout" to="/login" onClick={logoutHandler}>
+            <Link className="logout" to="/" onClick={logoutHandler}>
               Logout
               </Link>
           </div>
@@ -104,7 +103,7 @@ const App = () => {
             <Link className="signup" to="/signup">
               Sign up
             </Link>
-            <Link className="login" to="/login">
+            <Link className="login" to="/">
               Login
             </Link>
           </div>
@@ -120,7 +119,7 @@ const App = () => {
           }
         ></Route>
         <Route
-          path="/login"
+          path="/"
           element={
             <Login
               setToken={setToken}

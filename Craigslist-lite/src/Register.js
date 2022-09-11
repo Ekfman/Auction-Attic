@@ -19,6 +19,8 @@ const Register = ({setToken}) => {
       console.error(err);
     }
   };
+
+  
   return (
     <div className="formContainer">
       <form>
