@@ -3,7 +3,7 @@ import MessageForm from "./MessageForm";
 import EditPost from "./EditPost";
 
 const Post = ({post, token, setDescription, setTitle, setPrice, setLocation, setPosts, posts,
-    setWillDeliver, willDeliver}) => {
+    setWillDeliver, willDeliver, deleteHandler}) => {
     
     const [editFormDisplay, setEditFormDisplay] = useState(false)
     const [messageFormDisplay, setMessageFormDisplay] = useState(false);

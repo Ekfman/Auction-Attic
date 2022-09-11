@@ -1,5 +1,4 @@
 import { useState } from "react"
-import Post from "./Post"
 import { EditPostApi } from "./Api"
 
 

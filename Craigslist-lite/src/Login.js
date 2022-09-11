@@ -1,13 +1,22 @@
-import { useState, useEffect } from "react";
 import { regAndLogAPI } from "./Api";
+import { useNavigate } from "react-router";
+import { useState } from "react"
 
-const Login = ({ username, setUsername, password, setPassword, setToken }) => {
+
+const Login = ({setToken}) => {
+  
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
       const regOrLog = "login";
       const token = await regAndLogAPI(username, password, regOrLog);
       setToken(token);
+      navigate("/listings")
     } catch (err) {
       console.error(err);
     }

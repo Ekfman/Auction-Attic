@@ -53,6 +53,7 @@ const Posts = ({
             setPosts={setPosts}
             posts={posts}
             willDeliver={willDeliver}
+            deleteHandler={deleteHandler}
           />
         );
       })}

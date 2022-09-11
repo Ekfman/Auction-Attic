@@ -120,14 +120,17 @@ export const EditPostApi = async ({title, description, price, location, willDeli
 
 export const deletePostApi = async ({ token, deletedPostId }) => {
   try {
-    const response = await fetch(`${baseURL}${cohortURL}/${deletedPostId}`, {
+    const response = await fetch(`${baseURL}${cohortURL}/posts/${deletedPostId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
-    const data = response.json();
+    const data = await response.json();
+    if(!response.ok){
+        throw data.error.message
+    }
     return data;
   } catch (err) {
     console.error(err);

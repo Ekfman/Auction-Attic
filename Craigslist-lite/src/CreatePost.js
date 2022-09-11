@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createPostApi } from "./Api";
+import { useNavigate } from "react-router";
 
 
 
@@ -19,6 +20,7 @@ const CreatePost = ({
 
 const [willDeliver, setWillDeliver] = useState(false)
 
+const navigate = useNavigate()
 const handleCheckBox = () => {
     console.log(willDeliver)
     setWillDeliver(!willDeliver)
@@ -35,6 +37,7 @@ const handleCheckBox = () => {
         willDeliver
       });
       setPosts([newPost, ...posts]);
+      navigate("/listings")
     } catch (err) {
       console.error(err);
     }

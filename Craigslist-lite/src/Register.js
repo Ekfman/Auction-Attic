@@ -1,19 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { regAndLogAPI } from "./Api";
+import { useNavigate } from "react-router";
 
-const Register = ({
-  username,
-  setUsername,
-  password,
-  setPassword,
-  setToken,
-}) => {
+const Register = ({setToken}) => {
+
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate()
+
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
         const regOrLog = "register"
       const token = await regAndLogAPI(username, password, regOrLog);
       setToken(token);
+      navigate("/listings")
     } catch (err) {
       console.error(err);
     }
@@ -36,10 +37,6 @@ const Register = ({
           type="password"
           required
         ></input>
-        <br></br>
-        <label>Confirm Password:</label>
-        <br></br>
-        <input className="formInput" type="password" required></input>
         <br></br>
         <button onClick={submitHandler} className="buttonForm">Sign up</button>
       </form>

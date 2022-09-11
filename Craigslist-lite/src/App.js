@@ -5,28 +5,41 @@ import Register from "./Register";
 import Login from "./Login";
 import CreatePost from "./CreatePost";
 import MyListings from "./MyListings";
-import { fetchApiPosts, deletePostApi } from "./Api";
+import { fetchApiPosts, deletePostApi, profileApi } from "./Api";
 import Messages from "./Messages";
 
-import { EditPost } from "./EditPost";
 
 const App = () => {
   const [posts, setPosts] = useState([]);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [location, setLocation] = useState("Not Available");
   const [willDeliver, setWillDeliver] = useState(false);
   const [message, setMessage] = useState("");
-  const [searchValue, setSearchValue] = useState("")
+  const [searchValue, setSearchValue] = useState("");
+  const [loggedInUserData, setLoggedInUserData] = useState([])
 
-  const [token, setToken] = useState(window.localStorage.getItem("token") || "");
+  const [token, setToken] = useState(
+    window.localStorage.getItem("token") || ""
+  );
   useEffect(() => {
-    window.localStorage.setItem("token", token)
-  }, [token])
+    window.localStorage.setItem("token", token);
+  }, [token]);
 
+  useEffect( () => {
+      const fetchLoggedInUserData = async () => {
+        try{
+            const userData = await profileApi({token});
+            setLoggedInUserData(userData.data)
+            console.log(userData.data)
+        } catch (err) {
+            console.error(err);
+          }
+        };
+       token && fetchLoggedInUserData()
+}, [token])
+  
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -42,16 +55,24 @@ const App = () => {
   const deleteHandler = async (deletedPostId) => {
     console.log("delete");
     try {
-      const fetchDeletedPost = await deletePostApi({ deletedPostId });
+      const fetchDeletedPost = await deletePostApi({ token, deletedPostId });
       console.log(fetchDeletedPost);
       if (fetchDeletedPost) {
-        const postsAfterDelete = posts.filter((post) => post._id !== deletedPostId);
-        setPosts(postsAfterDelete)
+        const postsAfterDelete = posts.filter(
+          (post) => post._id !== deletedPostId
+        );
+        setPosts(postsAfterDelete);
       }
     } catch (err) {
       console.error(err);
     }
   };
+
+  const logoutHandler = () => {
+    setToken("");
+    setUsername("");
+    setPassword("");
+  }
 
   return (
     <BrowserRouter>
@@ -63,12 +84,21 @@ const App = () => {
         </div>
 
         {token ? (
-            <div className="loginLinks">
-                <Link className="signup" to="/myListings">My Listings</Link>
-                <Link className="login" to="/addListing">Create Listing</Link>
-                <Link className="login" to="/messages">Messages</Link>
-                <Link className="logout" to="/">Logout</Link>
-            </div>
+          // <p>Hello, {username}</p>
+          <div className="loginLinks">
+            <Link className="signup" to="/myListings">
+              My Listings
+            </Link>
+            <Link className="login" to="/addListing">
+              Create Listing
+            </Link>
+            <Link className="login" to="/messages">
+              Messages
+            </Link>
+            <Link className="logout" to="/login" onClick={logoutHandler}>
+              Logout
+              </Link>
+          </div>
         ) : (
           <div className="loginLinks">
             <Link className="signup" to="/signup">
@@ -85,10 +115,6 @@ const App = () => {
           path="/signup"
           element={
             <Register
-              username={username}
-              setUsername={setUsername}
-              setPassword={setPassword}
-              password={password}
               setToken={setToken}
             />
           }
@@ -97,10 +123,6 @@ const App = () => {
           path="/login"
           element={
             <Login
-              username={username}
-              setUsername={setUsername}
-              setPassword={setPassword}
-              password={password}
               setToken={setToken}
             />
           }
@@ -148,10 +170,34 @@ const App = () => {
         ></Route>
         <Route
           path="/myListings"
-          element={<MyListings posts={posts} deleteHandler={deleteHandler}  searchValue={searchValue}
-          setSearchValue={setSearchValue} />}
+          element={
+            <MyListings
+              posts={posts}
+              deleteHandler={deleteHandler}
+              searchValue={searchValue}
+              token={token}
+              setSearchValue={setSearchValue}
+              setPosts={setPosts}
+            />
+          }
         ></Route>
-        <Route path="/messages" element={<Messages token={token} username={username} />}></Route>
+        <Route
+          path="/messages"
+          element={
+            <Messages
+              token={token}
+              setDescription={setDescription}
+              setPrice={setPrice}
+              setTitle={setTitle}
+              setLocation={setLocation}
+              setWillDeliver={setWillDeliver}
+              willDeliver={willDeliver}
+              setPosts={setPosts}
+              posts={posts}
+              loggedInUserData={loggedInUserData}
+            />
+          }
+        ></Route>
       </Routes>
     </BrowserRouter>
   );
