@@ -1,4 +1,3 @@
-import { async } from "q";
 
 const baseURL = "https://strangers-things.herokuapp.com/api";
 const cohortURL = "/2206-ftb-pt-web-pt";
@@ -12,7 +11,6 @@ export const fetchApiPosts = async ({ token }) => {
       },
     });
     const data = await response.json();
-    // console.log("data:", data)
     return data;
   } catch (err) {
     console.error(err);

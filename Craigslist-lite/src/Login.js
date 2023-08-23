@@ -15,8 +15,12 @@ const Login = ({setToken}) => {
     try {
       const regOrLog = "login";
       const token = await regAndLogAPI(username, password, regOrLog);
-      setToken(token);
-      navigate("/listings")
+      if(token){
+        setToken(token);
+        navigate("/")
+      } else {
+        window.alert("Username or password incorrect, please try again.")
+      }
     } catch (err) {
       console.error(err);
     }

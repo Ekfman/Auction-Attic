@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 import Posts from "./Posts";
 import Register from "./Register";
 import Login from "./Login";
@@ -19,6 +19,7 @@ const App = () => {
   const [message, setMessage] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [loggedInUserData, setLoggedInUserData] = useState([])
+
 
   const [token, setToken] = useState(
     window.localStorage.getItem("token") || ""
@@ -78,7 +79,7 @@ const App = () => {
     <BrowserRouter>
       <nav className="navbar">
         <div className="navbarLeft">
-          <Link className="logo" to="/listings">
+          <Link className="logo" to="/">
             The <br></br>Auction <br></br>Attic
           </Link>
         </div>
@@ -100,10 +101,13 @@ const App = () => {
           </div>
         ) : (
           <div className="loginLinks">
-            <Link className="signup" to="/signup">
-              Sign up
+            <Link className="listings" to="/">
+              Listings
             </Link>
-            <Link className="login" to="/">
+            <Link className="signup" to="/register">
+              Register
+            </Link>
+            <Link className="login" to="/login">
               Login
             </Link>
           </div>
@@ -111,7 +115,7 @@ const App = () => {
       </nav>
       <Routes>
         <Route
-          path="/signup"
+          path="/register"
           element={
             <Register
               setToken={setToken}
@@ -119,7 +123,7 @@ const App = () => {
           }
         ></Route>
         <Route
-          path="/"
+          path="/login"
           element={
             <Login
               setToken={setToken}
@@ -127,7 +131,7 @@ const App = () => {
           }
         ></Route>
         <Route
-          path="/listings"
+          path="/"
           element={
             <Posts
               posts={posts}
