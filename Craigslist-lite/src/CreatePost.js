@@ -37,7 +37,7 @@ const handleCheckBox = () => {
         willDeliver
       });
       setPosts([newPost, ...posts]);
-      navigate("/listings")
+      navigate("/myListings")
     } catch (err) {
       console.error(err);
     }

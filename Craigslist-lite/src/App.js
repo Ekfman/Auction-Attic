@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+} from "react-router-dom";
 import Posts from "./Posts";
 import Register from "./Register";
 import Login from "./Login";
@@ -7,7 +13,6 @@ import CreatePost from "./CreatePost";
 import MyListings from "./MyListings";
 import { fetchApiPosts, deletePostApi, profileApi } from "./Api";
 import Messages from "./Messages";
-
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -18,8 +23,7 @@ const App = () => {
   const [willDeliver, setWillDeliver] = useState(false);
   const [message, setMessage] = useState("");
   const [searchValue, setSearchValue] = useState("");
-  const [loggedInUserData, setLoggedInUserData] = useState([])
-
+  const [loggedInUserData, setLoggedInUserData] = useState([]);
 
   const [token, setToken] = useState(
     window.localStorage.getItem("token") || ""
@@ -28,19 +32,19 @@ const App = () => {
     window.localStorage.setItem("token", token);
   }, [token]);
 
-  useEffect( () => {
-      const fetchLoggedInUserData = async () => {
-        try{
-            const userData = await profileApi({token});
-            setLoggedInUserData(userData.data)
-            console.log(userData.data)
-        } catch (err) {
-            console.error(err);
-          }
-        };
-       token && fetchLoggedInUserData()
-}, [token])
-  
+  useEffect(() => {
+    const fetchLoggedInUserData = async () => {
+      try {
+        const userData = await profileApi({ token });
+        setLoggedInUserData(userData.data);
+        console.log(userData.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    token && fetchLoggedInUserData();
+  }, [token]);
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -73,7 +77,7 @@ const App = () => {
     setToken("");
     setUsername("");
     setPassword("");
-  }
+  };
 
   return (
     <BrowserRouter>
@@ -86,6 +90,14 @@ const App = () => {
 
         {token ? (
           <div className="loginLinks">
+            <a href="#" class="toggle-button">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </a>
+            <Link className="listings" to="/">
+              Listings
+            </Link>
             <Link className="signup" to="/myListings">
               My Listings
             </Link>
@@ -97,7 +109,7 @@ const App = () => {
             </Link>
             <Link className="logout" to="/" onClick={logoutHandler}>
               Logout
-              </Link>
+            </Link>
           </div>
         ) : (
           <div className="loginLinks">
@@ -116,20 +128,9 @@ const App = () => {
       <Routes>
         <Route
           path="/register"
-          element={
-            <Register
-              setToken={setToken}
-            />
-          }
+          element={<Register setToken={setToken} />}
         ></Route>
-        <Route
-          path="/login"
-          element={
-            <Login
-              setToken={setToken}
-            />
-          }
-        ></Route>
+        <Route path="/login" element={<Login setToken={setToken} />}></Route>
         <Route
           path="/"
           element={
