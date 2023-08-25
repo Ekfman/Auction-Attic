@@ -8,7 +8,8 @@ const Register = ({ setToken }) => {
   const [confirmPass, setConfirmPass] = useState("");
   const navigate = useNavigate();
 
-  console.log('password :>> ', password);
+
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
