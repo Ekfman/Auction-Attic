@@ -1,9 +1,18 @@
 import { useState, useEffect } from "react";
 import EditPost from "./EditPost";
 
-
-const MyListings = ({token, setDescription, setTitle, setPrice, setLocation, setPosts, posts,
-  setWillDeliver, willDeliver, deleteHandler}) => {
+const MyListings = ({
+  token,
+  setDescription,
+  setTitle,
+  setPrice,
+  setLocation,
+  setPosts,
+  posts,
+  setWillDeliver,
+  willDeliver,
+  deleteHandler,
+}) => {
   const [editFormDisplay, setEditFormDisplay] = useState(false);
 
   const handleEditButton = () => {
@@ -12,9 +21,7 @@ const MyListings = ({token, setDescription, setTitle, setPrice, setLocation, set
 
   const handlePostUpdate = () => {
     setEditFormDisplay(false);
-  
   };
-  
 
   const filteredPosts = posts.filter((post) => post.isAuthor);
 

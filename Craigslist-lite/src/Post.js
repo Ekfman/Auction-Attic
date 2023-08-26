@@ -85,8 +85,7 @@ const Post = ({
               >
                 {messageFormDisplay ? "Cancel" : "Message"}
               </button>
-            ) : null
-            }
+            ) : null}
           </div>
           {post.isAuthor && (
             <button

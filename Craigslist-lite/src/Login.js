@@ -1,10 +1,8 @@
 import { regAndLogAPI } from "./Api";
 import { useNavigate } from "react-router";
-import { useState } from "react"
+import { useState } from "react";
 
-
-const Login = ({setToken}) => {
-  
+const Login = ({ setToken }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,11 +13,11 @@ const Login = ({setToken}) => {
     try {
       const regOrLog = "login";
       const token = await regAndLogAPI(username, password, regOrLog);
-      if(token){
+      if (token) {
         setToken(token);
-        navigate("/")
+        navigate("/");
       } else {
-        window.alert("Username or password incorrect, please try again.")
+        window.alert("Username or password incorrect, please try again.");
       }
     } catch (err) {
       console.error(err);
@@ -30,16 +28,18 @@ const Login = ({setToken}) => {
       <form onSubmit={submitHandler}>
         <label>Username:</label>
         <br></br>
-        <input className="formInput"
-          onChange={e => setUsername(e.target.value)}
+        <input
+          className="formInput"
+          onChange={(e) => setUsername(e.target.value)}
           type="text"
           required
         ></input>
         <br></br>
         <label>Password:</label>
         <br></br>
-        <input className="formInput"
-          onChange={e => setPassword(e.target.value)}
+        <input
+          className="formInput"
+          onChange={(e) => setPassword(e.target.value)}
           type="password"
           required
         ></input>

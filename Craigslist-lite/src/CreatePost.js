@@ -2,8 +2,6 @@ import { useState } from "react";
 import { createPostApi } from "./Api";
 import { useNavigate } from "react-router";
 
-
-
 const CreatePost = ({
   title,
   setTitle,
@@ -15,16 +13,15 @@ const CreatePost = ({
   setPosts,
   location,
   setLocation,
-  token
+  token,
 }) => {
+  const [willDeliver, setWillDeliver] = useState(false);
 
-const [willDeliver, setWillDeliver] = useState(false)
-
-const navigate = useNavigate()
-const handleCheckBox = () => {
-    console.log(willDeliver)
-    setWillDeliver(!willDeliver)
-}
+  const navigate = useNavigate();
+  const handleCheckBox = () => {
+    console.log(willDeliver);
+    setWillDeliver(!willDeliver);
+  };
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -34,10 +31,10 @@ const handleCheckBox = () => {
         price,
         location,
         token,
-        willDeliver
+        willDeliver,
       });
       setPosts([newPost, ...posts]);
-      navigate("/myListings")
+      navigate("/myListings");
     } catch (err) {
       console.error(err);
     }
@@ -74,8 +71,13 @@ const handleCheckBox = () => {
             placeholder="City, State"
             required
           ></input>
-          <label>Will Deliver?</label>
-          <input className="checkbox" type="checkbox" checked={willDeliver} onChange={handleCheckBox}></input>
+          <label> Will Deliver?</label>
+          <input
+            className="checkbox"
+            type="checkbox"
+            checked={willDeliver}
+            onChange={handleCheckBox}
+          ></input>
         </div>
         <button>Add Listing</button>
       </form>

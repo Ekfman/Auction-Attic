@@ -1,4 +1,3 @@
-
 const baseURL = "https://strangers-things.herokuapp.com/api";
 const cohortURL = "/2206-ftb-pt-web-pt";
 
@@ -63,7 +62,7 @@ export const createPostApi = async ({
   price,
   token,
   location,
-  willDeliver
+  willDeliver,
 }) => {
   try {
     const response = await fetch(`${baseURL}${cohortURL}/posts`, {
@@ -78,7 +77,7 @@ export const createPostApi = async ({
           description,
           price,
           location,
-          willDeliver
+          willDeliver,
         },
       }),
     });
@@ -91,43 +90,54 @@ export const createPostApi = async ({
   }
 };
 
-export const EditPostApi = async ({title, description, price, location, willDeliver, token, postId}) => {
-    try{
-        const response = await fetch (`${baseURL}${cohortURL}/posts/${postId}`, {
-            method: "PATCH",
-            headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                    },
-            body: JSON.stringify({
-                post: {
-                    title,
-                    description,
-                    price,
-                    willDeliver,
-                    location
-                }
-            })
-        });
-        const data = await response.json()
-        return data.data.post
-        } catch (err) {
-    console.error(err)
-}
-}
-
-export const deletePostApi = async ({ token, deletedPostId }) => {
+export const EditPostApi = async ({
+  title,
+  description,
+  price,
+  location,
+  willDeliver,
+  token,
+  postId,
+}) => {
   try {
-    const response = await fetch(`${baseURL}${cohortURL}/posts/${deletedPostId}`, {
-      method: "DELETE",
+    const response = await fetch(`${baseURL}${cohortURL}/posts/${postId}`, {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify({
+        post: {
+          title,
+          description,
+          price,
+          willDeliver,
+          location,
+        },
+      }),
     });
     const data = await response.json();
-    if(!response.ok){
-        throw data.error.message
+    return data.data.post;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const deletePostApi = async ({ token, deletedPostId }) => {
+  try {
+    const response = await fetch(
+      `${baseURL}${cohortURL}/posts/${deletedPostId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await response.json();
+    if (!response.ok) {
+      throw data.error.message;
     }
     return data;
   } catch (err) {
@@ -135,9 +145,11 @@ export const deletePostApi = async ({ token, deletedPostId }) => {
   }
 };
 
-export const messageApi = async ({postId, token, message}) => {
+export const messageApi = async ({ postId, token, message }) => {
   try {
-    const response = await fetch(`${baseURL}${cohortURL}/posts/${postId}/messages`, {
+    const response = await fetch(
+      `${baseURL}${cohortURL}/posts/${postId}/messages`,
+      {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -145,7 +157,7 @@ export const messageApi = async ({postId, token, message}) => {
         },
         body: JSON.stringify({
           message: {
-            content: `${message}`
+            content: `${message}`,
           },
         }),
       }
@@ -157,17 +169,17 @@ export const messageApi = async ({postId, token, message}) => {
   }
 };
 
-export const inboxApi = async ({token}) => {
-    try{
-        const response = await fetch(`${baseURL}${cohortURL}/users/me`, {
-    headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
-  },
-})
+export const inboxApi = async ({ token }) => {
+  try {
+    const response = await fetch(`${baseURL}${cohortURL}/users/me`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = await response.json();
     return data;
-    } catch (err) {
-        console.error(err);
-}
-}
+  } catch (err) {
+    console.error(err);
+  }
+};

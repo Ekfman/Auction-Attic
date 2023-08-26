@@ -12,6 +12,7 @@
         display: flex;
         flex-direction: column;
     }
+
     .listings{
         text-decoration: none;
         color: white;
@@ -63,7 +64,6 @@
         border: none !important;
         padding-right: 12px;
         margin-right: 0px !important;
-
     }
 }
 
@@ -240,9 +240,8 @@
 }
 
 .margin{
-    margin-left:20em;
-    margin-right: 20em;
-    min-width: 320px;
+    display: flex;
+    justify-content: center;
 }
 
 .postHeader{
@@ -337,6 +336,7 @@
 
 .form{
     margin-top: 100px;
+    justify-content: center;
 }
 
 .formInput{

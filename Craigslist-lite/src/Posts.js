@@ -13,7 +13,7 @@ const Posts = ({
   setWillDeliver,
   setPrice,
   setPosts,
-  willDeliver
+  willDeliver,
 }) => {
   const postsMatches = (post) => {
     const textToCheck = (
